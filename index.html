@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novio y Novia - Nuestra Historia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --netflix-red: #E50914;
+            --netflix-black: #141414;
+            --netflix-dark-gray: #181818;
+            --netflix-light-gray: #b3b3b3;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--netflix-black);
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        header {
+            position: fixed;
+            top: 0; width: 100%; padding: 15px 4%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--netflix-red); font-size: 1.6rem; font-weight: bold;
+            letter-spacing: 1px; text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-links { 
+            display: flex; gap: 20px; list-style: none; flex-grow: 1; margin-left: 30px;
+        }
+        .nav-links li a { color: white; text-decoration: none; font-size: 0.85rem; }
+
+        .right-icons { 
+            display: flex; align-items: center; gap: 15px; 
+            flex-shrink: 0; 
+        }
+        
+        .profile-img {
+            width: 28px; height: 28px;
+            border-radius: 4px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .hero {
+            position: relative; height: 100vh; width: 100%;
+            background: url('img/principal.jpg') center/cover no-repeat;
+        }
+
+        .hero::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, var(--netflix-black) 5%, transparent 70%);
+        }
+
+        .hero-content {
+            position: absolute; bottom: 20%; left: 4%; width: 92%; max-width: 650px; z-index: 10;
+        }
+
+        .main-title {
+            font-family: 'Great Vibes', cursive; font-size: clamp(2.5rem, 12vw, 5.5rem);
+            line-height: 1.1; margin-bottom: 10px;
+        }
+
+        .description-container { margin-bottom: 20px; }
+
+        .description {
+            font-size: 0.95rem; line-height: 1.4;
+            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+            overflow: hidden; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        }
+
+        .read-more {
+            display: inline-block;
+            color: white; cursor: pointer; font-weight: bold;
+            text-decoration: none; margin-top: 8px; font-size: 0.85rem;
+            background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 4px;
+        }
+
+        .buttons-container { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .btn {
+            border: none; padding: 10px 20px; border-radius: 4px;
+            font-size: 1rem; font-weight: bold; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-play { background: white; color: black; }
+        .btn-list { background: rgba(109, 109, 110, 0.8); color: white; }
+
+        .carousel-section { padding: 0 4% 40px; margin-top: -60px; position: relative; z-index: 20; }
+        .section-title { margin-bottom: 12px; font-size: 1.1rem; }
+        .carousel-container { overflow: hidden; width: 100%; }
+        
+        .thumbnails {
+            display: flex; gap: 10px;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .thumb {
+            width: 200px; height: 112px; flex-shrink: 0;
+            border-radius: 4px; overflow: hidden;
+        }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-200px * 4 - 40px)); }
+        }
+
+        .modal {
+            display: none; position: fixed; z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); justify-content: center; align-items: center;
+            padding: 15px; backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--netflix-dark-gray);
+            max-width: 500px; width: 100%; max-height: 85vh; 
+            padding: 25px; border-radius: 12px; position: relative;
+            overflow-y: auto; border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            header { padding: 10px 5%; }
+            .logo { font-size: 1.4rem; }
+            .hero-content { bottom: 15%; }
+            .carousel-section { margin-top: -40px; }
+        }
+
+        @media (max-width: 480px) {
+            .btn { width: 100%; justify-content: center; } 
+            .buttons-container { flex-direction: column; }
+            .main-title { margin-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">NETFLIX</a>
+        <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Series</a></li>
+            <li><a href="#">Películas</a></li>
+            <li><a href="#">Mi lista</a></li>
+        </ul>
+        <div class="right-icons">
+            <i class="fas fa-search"></i>
+            <img src="img/perfil.png" alt="Perfil" class="profile-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png'">
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div style="margin-bottom: 8px; color: var(--netflix-light-gray); font-weight: bold; font-size: 0.8rem;">
+                <span style="color: var(--netflix-red); font-size: 1rem;">N</span> SERIES
+            </div>
+            <h1 class="main-title">Novio y Novia</h1>
+            <div style="margin-bottom: 12px; font-weight: bold; font-size: 0.85rem;">
+                <span style="border: 1px solid white; padding: 0 4px; font-size: 0.7rem; margin-right: 8px;">16+</span>
+                2026 | 1 Temporada | <span style="color: #46d369;">98% para ti</span>
+            </div>
+            
+            <div class="description-container">
+                <p class="description">
+                    Nuestra historia comenzó en [[año y lugar donde se conocieron]], entre [[describe el ambiente o contexto]], cuando nuestros caminos se cruzaron por primera vez. Lo que nació como [[amistad, romance juvenil, conexión especial]] quedó guardado en el corazón, incluso cuando el tiempo nos llevó por rumbos distintos....
+                </p>
+                <span class="read-more" onclick="openModal()">Leer más</span>
+            </div>
+
+            <div class="buttons-container">
+                <button class="btn btn-play" id="btnReproducir">
+                    <i class="fas fa-play"></i> Reproducir
+                </button>
+                <button class="btn btn-list">
+                    <i class="fas fa-plus"></i> Mi lista
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="carousel-section">
+        <h3 class="section-title">Nuestros mejores momentos</h3>
+        <div class="carousel-container">
+            <div class="thumbnails">
+                <div class="thumb"><img src="img/1.jpg" alt="1"></div>
+                <div class="thumb"><img src="img/2.jpg" alt="2"></div>
+                <div class="thumb"><img src="img/3.jpg" alt="3"></div>
+                <div class="thumb"><img src="img/4.jpg" alt="4"></div>
+                <div class="thumb"><img src="img/1.jpg" alt="1"></div>
+                <div class="thumb"><img src="img/2.jpg" alt="2"></div>
+                <div class="thumb"><img src="img/3.jpg" alt="3"></div>
+                <div class="thumb"><img src="img/4.jpg" alt="4"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="descModal">
+        <div class="modal-content">
+            <span style="float:right; font-size:2rem; cursor:pointer;" onclick="closeModal()">&times;</span>
+            <h2 style="font-family:'Great Vibes', cursive; font-size:2.2rem; color:var(--netflix-red); margin-bottom:15px;">Nuestra Historia</h2>
+            <p style="font-size:1rem; line-height:1.5; text-align:justify;">
+                Mi amor,
+Desde aquel día en [[lugar y año donde se conocieron]], mi vida cambió sin que yo lo notara. Tú llegaste como [[describe cómo fue su primer encuentro]], y desde entonces te quedaste en mi corazón, incluso en los momentos en los que la vida nos llevó por caminos distintos.
+Cuando nos reencontramos en [[año del reencuentro]], entendí que algunas historias están hechas para renacer. Contigo redescubrí la alegría, la calma y el sentido de pertenecer.<br><br>
+                Gracias por cada risa, cada abrazo y cada sueño compartido. Gracias por [[evento especial: embarazo, compromiso, unión, etc.]], por todo lo que hemos vivido y lo que aún nos espera.
+Hoy solo quiero decirte que te amo, y que cada día contigo es el lugar donde quiero quedarme.
+Siempre tuyo,
+<br><br>[[tu nombre]]
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function openModal() { 
+            document.getElementById('descModal').style.display = 'flex'; 
+            document.body.style.overflow = 'hidden'; 
+        }
+        function closeModal() { 
+            document.getElementById('descModal').style.display = 'none'; 
+            document.body.style.overflow = 'auto'; 
+        }
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('descModal')) closeModal();
+        }
+        document.getElementById('btnReproducir').addEventListener('click', function() {
+            window.open('video.html', 'Reproductor', 'width=1024,height=768');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproduciendo: Darwin & Abigail</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; background-color: #000;
+            display: flex; justify-content: center; align-items: center;
+            font-family: sans-serif;
+        }
+        #video-container {
+            display: none; width: 100%; height: 100%;
+        }
+
+        iframe {
+            width: 100%; height: 100%; border: none;
+        }
+
+        #loader-container { text-align: center; }
+
+        .netflix-loader {
+            width: 70px; height: 70px;
+            border: 5px solid rgba(229, 9, 20, 0.2);
+            border-left-color: #E50914;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        .loading-text {
+            color: #E50914; font-weight: bold; letter-spacing: 3px;
+            text-transform: uppercase; animation: pulse 1.5s infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+
+    <div id="loader-container">
+        <div class="netflix-loader"></div>
+        <div class="loading-text">Cargando</div>
+    </div>
+
+    <div id="video-container">
+        <iframe src="https://www.canva.com/design/DAHBbDjQPiM/vkVHxdYoYhpwVpApc_HvqA/watch?embed" 
+                allowfullscreen="allowfullscreen" allow="autoplay; fullscreen">
+        </iframe>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('loader-container').style.display = 'none';
+            document.getElementById('video-container').style.display = 'block';
+        }, 2000);
+    </script>
+
+</body>
+</html>
